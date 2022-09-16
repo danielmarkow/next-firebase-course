@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {useContext} from "react";
 import {UserContext} from "../lib/context";
+import SignOutButton from "./SignOutButton";
 
 function Navbar() {
     const {user, username} = useContext(UserContext);
@@ -20,6 +21,9 @@ function Navbar() {
                             <Link href="/admin">
                                 <button className="btn-blue">Write Posts</button>
                             </Link>
+                        </li>
+                        <li>
+                            <SignOutButton />
                         </li>
                         <li>
                             <Link href={`/${username}`}>

@@ -6,9 +6,12 @@ import debounce from "lodash.debounce";
 
 import {doc, getDoc, writeBatch} from "firebase/firestore";
 
+import SignOutButton from "../components/SignOutButton";
+
 function Enter() {
   const {user, username} = useContext(UserContext);
   // console.log("user inside enter: ", user);
+  // console.log("username inside enter: ", username);
 
   return (
       <main>
@@ -38,11 +41,11 @@ function SignInButton() {
   );
 }
 
-function SignOutButton() {
-  return (
-      <button onClick={() => signOut(auth)}>Sign Out</button>
-  );
-}
+// function SignOutButton() {
+//   return (
+//       <button className="btn-green" onClick={() => signOut(auth)}>Sign Out</button>
+//   );
+// }
 
 function UsernameForm() {
   const [formValue, setFormValue] = useState("");
@@ -99,11 +102,6 @@ function UsernameForm() {
 
     await batch.commit();
 
-    // try {
-    //   await batch.commit();
-    // } catch (e) {
-    //   console.log(e);
-    // }
   };
 
   function UsernameMessage({username, isValid, loading}) {
