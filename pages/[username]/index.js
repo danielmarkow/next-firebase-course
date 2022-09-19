@@ -10,11 +10,19 @@ export async function getServerSideProps({query}) {
     const user = await getUserWithUsername(username);
     let posts = [];
 
-    let usersRef = collectionGroup(firestore, "posts");
-    let q = fbQuery(usersRef, where("username", "==", username), where("published", "==", true), orderBy("createdAt", "desc"), limit(5));
-    let res = await getDocs(q);
+    if (!user) {
+        return {
+            notFound: true
+        }
+    }
 
-    res.forEach((doc) => {posts.push(postToJson(doc))});
+    if (user) {
+        let usersRef = collectionGroup(firestore, "posts");
+        let q = fbQuery(usersRef, where("username", "==", username), where("published", "==", true), orderBy("createdAt", "desc"), limit(5));
+        let res = await getDocs(q);
+
+        res.forEach((doc) => {posts.push(postToJson(doc))});
+    }
 
 
     return {
